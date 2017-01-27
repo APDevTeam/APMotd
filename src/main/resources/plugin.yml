@@ -1,0 +1,4 @@
+name: APMotd
+main: io.github.cccm5.APMotd.MotdMain
+version: 0.0.1
+depend: [Movecraft]
