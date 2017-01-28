@@ -53,6 +53,6 @@ public class SiegeTime implements Comparable<SiegeTime>{
     }
 
     private static SiegeTime minutesToSiegeTime(int minutes){
-        return new SiegeTime(minutes/1440, minutes%1440/60, minutes%1440%60);
+        return new SiegeTime(minutes%1440%60, minutes%1440/60, minutes/1440);
     }
 }
