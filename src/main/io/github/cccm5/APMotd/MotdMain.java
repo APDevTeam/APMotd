@@ -35,6 +35,7 @@ public class MotdMain extends JavaPlugin implements Listener{
         motd = ChatColor.translateAlternateColorCodes('&', config.getString("Motd"));
 
         logger = this.getLogger();
+        getServer().getPluginManager().registerEvents(this, this);
 
         if(getServer().getPluginManager().getPlugin("Movecraft") == null || !getServer().getPluginManager().getPlugin("Movecraft").isEnabled()) {
             logger.log(Level.SEVERE, "Movecraft not found or not enabled");
@@ -50,7 +51,10 @@ public class MotdMain extends JavaPlugin implements Listener{
             return;
         }
         for(String name : siegeTimes.keySet()){
-            cities.add(new City(name,new SiegeTime(siegeTimes.get(name)%100, siegeTimes.get(name)/ 100, siegeDays.get(name) )));
+            if(siegeDays.get(name)==null)
+                cities.add(new City(name,new SiegeTime(siegeTimes.get(name)%100, siegeTimes.get(name)/ 100, 7 )));
+            else
+                cities.add(new City(name,new SiegeTime(siegeTimes.get(name)%100, siegeTimes.get(name)/ 100, siegeDays.get(name) )));
         }
         Collections.sort(cities);
 
