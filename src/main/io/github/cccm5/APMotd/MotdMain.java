@@ -3,7 +3,7 @@ package io.github.cccm5.APMotd;
 import net.countercraft.movecraft.config.Settings;
 import net.countercraft.movecraft.craft.CraftManager;
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.Configuration;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
@@ -20,7 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MotdMain extends JavaPlugin implements Listener{
-    private Configuration config;
+    private FileConfiguration config;
     private CraftManager craftManager;
     private Logger logger;
     private List<City> cities = new ArrayList<>();
