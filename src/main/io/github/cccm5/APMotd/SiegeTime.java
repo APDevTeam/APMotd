@@ -3,12 +3,13 @@ package io.github.cccm5.APMotd;
 public class SiegeTime implements Comparable<SiegeTime>{
     private int minute, hour, day;
 
+    //A day of 1 is monday, 7 is sunday
     public SiegeTime(int minute, int hour, int day){
         if(minute > 60 || minute < 0)
             throw new IllegalArgumentException("Minute must be withing 1-60. Input: " + minute);
         if(hour > 24 || hour < 0)
             throw new IllegalArgumentException("Hour must be withing 0-24. Input: " + hour);
-        if(day > 7 || day < 1)
+        if(day > 7 )//|| day < 1)
             throw new IllegalArgumentException("day must be withing 1-7. Input: " + day);
         this.minute = minute;
         this.hour = hour;
