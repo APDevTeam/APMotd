@@ -30,7 +30,8 @@ public class MotdMain extends JavaPlugin implements Listener{
     public void onEnable() {
 
         config = getConfig();
-        config.addDefault("Motd", "Hi mom");
+        config.addDefault("Motd", "&6Airship Pirates &2Survival &9 Airships, TnT, Factions!");
+        config.options().copyDefaults(true);
         this.saveConfig();
         motd = ChatColor.translateAlternateColorCodes('&', config.getString("Motd"));
 
