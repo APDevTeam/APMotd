@@ -5,11 +5,11 @@ public class SiegeTime implements Comparable<SiegeTime>{
 
     public SiegeTime(int minute, int hour, int day){
         if(minute > 60 || minute < 0)
-            throw new IllegalArgumentException("Minute must be withing 1-60");
+            throw new IllegalArgumentException("Minute must be withing 1-60. Input: " + minute);
         if(hour > 24 || hour < 0)
-            throw new IllegalArgumentException("Hour must be withing 0-24");
+            throw new IllegalArgumentException("Hour must be withing 0-24. Input: " + hour);
         if(day > 7 || day < 1)
-            throw new IllegalArgumentException("day must be withing 1-7");
+            throw new IllegalArgumentException("day must be withing 1-7. Input: " + day);
         this.minute = minute;
         this.hour = hour;
         this.day = day;
