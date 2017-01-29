@@ -40,10 +40,6 @@ public class SiegeTime implements Comparable<SiegeTime>{
         this.day = day;
     }
 
-    public SiegeTime getInterval(SiegeTime time){
-        return minutesToSiegeTime(Math.abs(this.toMinutes()-time.toMinutes()));
-    }
-
     private int toMinutes() {
         return 1440*day + 60 * hour + minute;
     }
@@ -54,12 +50,12 @@ public class SiegeTime implements Comparable<SiegeTime>{
         //return (day*1440 + hour * 60 + minute) - (o.getDay() * 1440 + o.getHour()*60 + o.getMinute());
     }
 
-    private static SiegeTime minutesToSiegeTime(int minutes){
+    public static SiegeTime minutesToSiegeTime(int minutes){
         return new SiegeTime(minutes%60,minutes/60%24,minutes/24/60);
         //return new SiegeTime(minutes%1440%60, minutes%1440/60, minutes/1440);
     }
 
-    private static int siegeTimetoMinutes(SiegeTime t){
+    public static int siegeTimetoMinutes(SiegeTime t){
         return t.getDay() * 1440 + t.getHour()*60 + t.getMinute();
 
     }
