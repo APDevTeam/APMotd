@@ -69,13 +69,12 @@ public class MotdMain extends JavaPlugin implements Listener{
         if(minutesToNextSiege<0)
             minutesToNextSiege = 10080 - minutesToNextSiege;
         //SiegeTime timeToNextSiege = nextSiege.getTime().getInterval(new SiegeTime(calendar.get(Calendar.MINUTE), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.DAY_OF_WEEK)));
-        SiegeTime timeToNextSiege = SiegeTime.minutesToSiegeTime(minutesToNextSiege);
-        if(timeToNextSiege.getDay()>0)
-            e.setMotd(motd + "\n" + timeToNextSiege.getDay() + " days until the siege of " + nextSiege.getName());
-        else if(timeToNextSiege.getHour()>0)
-            e.setMotd(motd + "\n" + timeToNextSiege.getHour() + " hours until the siege of " + nextSiege.getName());
+        if(minutesToNextSiege>1440)
+            e.setMotd(motd + "\n" + minutesToNextSiege/1440 + " days until the siege of " + nextSiege.getName());
+        else if(minutesToNextSiege>60)
+            e.setMotd(motd + "\n" + minutesToNextSiege/60 + " hours until the siege of " + nextSiege.getName());
         else
-            e.setMotd(motd + "\n" + timeToNextSiege.getMinute() + " minutes until the siege of " + nextSiege.getName());
+            e.setMotd(motd + "\n" + minutesToNextSiege + " minutes until the siege of " + nextSiege.getName());
     }
 
     private City getNextSiege(){
