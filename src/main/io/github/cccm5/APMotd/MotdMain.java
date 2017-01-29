@@ -65,7 +65,7 @@ public class MotdMain extends JavaPlugin implements Listener{
     public void onServerListPingEvent(ServerListPingEvent e){
         City nextSiege = getNextSiege();
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("MST"));
-        int minutesToNextSiege = SiegeTime.siegeTimetoMinutes(nextSiege.getTime()) - calendar.get(Calendar.MINUTE) - calendar.get(Calendar.HOUR_OF_DAY) * 60 -  calendar.get(Calendar.DAY_OF_WEEK) * 1440;
+        int minutesToNextSiege = SiegeTime.siegeTimetoMinutes(nextSiege.getTime()) - calendar.get(Calendar.MINUTE) - calendar.get(Calendar.HOUR_OF_DAY) * 60 -  (calendar.get(Calendar.DAY_OF_WEEK)-1) * 1440;
         if(minutesToNextSiege<0)
             minutesToNextSiege = 10080 + minutesToNextSiege;
         //SiegeTime timeToNextSiege = nextSiege.getTime().getInterval(new SiegeTime(calendar.get(Calendar.MINUTE), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.DAY_OF_WEEK)));
