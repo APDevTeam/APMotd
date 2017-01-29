@@ -64,19 +64,23 @@ public class MotdMain extends JavaPlugin implements Listener{
     }
 
     @EventHandler
-    public void onServerListPingEvent(ServerListPingEvent e){
+    public void onServerListPingEvent(ServerListPingEvent e) {
         City nextSiege = getNextSiege();
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("MST"));
-        int minutesToNextSiege = SiegeTime.siegeTimetoMinutes(nextSiege.getTime()) - calendar.get(Calendar.MINUTE) - calendar.get(Calendar.HOUR_OF_DAY) * 60 -  (calendar.get(Calendar.DAY_OF_WEEK)-1) * 1440;
-        if(minutesToNextSiege<0)
+        int minutesToNextSiege = SiegeTime.siegeTimetoMinutes(nextSiege.getTime()) - calendar.get(Calendar.MINUTE) - calendar.get(Calendar.HOUR_OF_DAY) * 60 - (calendar.get(Calendar.DAY_OF_WEEK) - 1) * 1440;
+        if (minutesToNextSiege < 0)
             minutesToNextSiege = 10080 + minutesToNextSiege;
         //SiegeTime timeToNextSiege = nextSiege.getTime().getInterval(new SiegeTime(calendar.get(Calendar.MINUTE), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.DAY_OF_WEEK)));
-        if(minutesToNextSiege>1440 && !debug)
-            e.setMotd(motd + ChatColor.RESET + "\n" + minutesToNextSiege/1440 + " days until the siege of " + nextSiege.getName());
-        else if(minutesToNextSiege>60 && !debug)
-            e.setMotd(motd + ChatColor.RESET + "\n" + minutesToNextSiege/60 + " hours until the siege of " + nextSiege.getName());
+        if (minutesToNextSiege > 1440 && !debug)
+            e.setMotd(motd + ChatColor.RESET + "\n" + minutesToNextSiege / 1440 + " days until the siege of " + nextSiege.getName());
+        else if (minutesToNextSiege > 60 && !debug)
+            e.setMotd(motd + ChatColor.RESET + "\n" + minutesToNextSiege / 60 + " hours until the siege of " + nextSiege.getName());
         else
             e.setMotd(motd + ChatColor.RESET + "\n" + minutesToNextSiege + " minutes until the siege of " + nextSiege.getName());
+        if (debug == true) {
+            logger.info("Current date: Day " + calendar.get(Calendar.DAY_OF_WEEK) + ", hour " + calendar.get(Calendar.HOUR_OF_DAY) + ", minute " + calendar.get(calendar.MINUTE));
+            logger.info("Siege date: Day " + nextSiege.getTime().getDay() + ", hour " + nextSiege.getTime().getHour() + ", minute " + nextSiege.getTime().getMinute());
+        }
     }
 
     private City getNextSiege(){
