@@ -25,6 +25,7 @@ public class MotdMain extends JavaPlugin implements Listener{
     private Logger logger;
     private List<City> cities = new ArrayList<>();
     private String motd;
+    private boolean debug;
 
     @Override
     public void onEnable() {
@@ -34,6 +35,7 @@ public class MotdMain extends JavaPlugin implements Listener{
         config.options().copyDefaults(true);
         this.saveConfig();
         motd = ChatColor.translateAlternateColorCodes('&', config.getString("Motd"));
+        debug = config.getBoolean("debug");
 
         logger = this.getLogger();
         getServer().getPluginManager().registerEvents(this, this);
@@ -69,12 +71,12 @@ public class MotdMain extends JavaPlugin implements Listener{
         if(minutesToNextSiege<0)
             minutesToNextSiege = 10080 + minutesToNextSiege;
         //SiegeTime timeToNextSiege = nextSiege.getTime().getInterval(new SiegeTime(calendar.get(Calendar.MINUTE), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.DAY_OF_WEEK)));
-        if(minutesToNextSiege>1440)
-            e.setMotd(motd + "\n" + minutesToNextSiege/1440 + " days until the siege of " + nextSiege.getName());
-        else if(minutesToNextSiege>60)
-            e.setMotd(motd + "\n" + minutesToNextSiege/60 + " hours until the siege of " + nextSiege.getName());
+        if(minutesToNextSiege>1440 && !debug)
+            e.setMotd(motd + ChatColor.RESET + "\n" + minutesToNextSiege/1440 + " days until the siege of " + nextSiege.getName());
+        else if(minutesToNextSiege>60 && !debug)
+            e.setMotd(motd + ChatColor.RESET + "\n" + minutesToNextSiege/60 + " hours until the siege of " + nextSiege.getName());
         else
-            e.setMotd(motd + "\n" + minutesToNextSiege + " minutes until the siege of " + nextSiege.getName());
+            e.setMotd(motd + ChatColor.RESET + "\n" + minutesToNextSiege + " minutes until the siege of " + nextSiege.getName());
     }
 
     private City getNextSiege(){
