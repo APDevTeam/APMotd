@@ -56,7 +56,7 @@ public class SiegeTime implements Comparable<SiegeTime>{
     }
 
     public static int siegeTimetoMinutes(SiegeTime t){
-        return (t.getDay()-1) * 1440 + t.getHour()*60 + t.getMinute();
+        return t.getDay() * 1440 + t.getHour()*60 + t.getMinute();
 
     }
 }
