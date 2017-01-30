@@ -1,5 +1,8 @@
 package io.github.cccm5.APMotd;
 
+import java.util.Calendar;
+import java.util.TimeZone;
+
 public class SiegeTime implements Comparable<SiegeTime>{
     private int minute, hour, day;
 
@@ -9,11 +12,20 @@ public class SiegeTime implements Comparable<SiegeTime>{
             throw new IllegalArgumentException("Minute must be withing 1-60. Input: " + minute);
         if(hour > 24 || hour < 0)
             throw new IllegalArgumentException("Hour must be withing 0-24. Input: " + hour);
-        if(day > 7 )//|| day < 1)
+        if(day > 7 || day < 1)
             throw new IllegalArgumentException("day must be withing 1-7. Input: " + day);
         this.minute = minute;
         this.hour = hour;
         this.day = day;
+    }
+    public SiegeTime(int minute, int hour) {
+        if (minute > 60 || minute < 0)
+            throw new IllegalArgumentException("Minute must be withing 1-60. Input: " + minute);
+        if (hour > 24 || hour < 0)
+            throw new IllegalArgumentException("Hour must be withing 0-24. Input: " + hour);
+        this.minute = minute;
+        this.hour = hour;
+        this.day = -1;
     }
 
     public int getMinute() {
@@ -33,6 +45,8 @@ public class SiegeTime implements Comparable<SiegeTime>{
     }
 
     public int getDay() {
+        if(day==-1)
+            return Calendar.getInstance(TimeZone.getTimeZone("MST")).get(Calendar.DAY_OF_WEEK);
         return day;
     }
 
@@ -41,7 +55,7 @@ public class SiegeTime implements Comparable<SiegeTime>{
     }
 
     private int toMinutes() {
-        return 1440*day + 60 * hour + minute;
+        return 1440*getDay() + 60 * hour + minute;
     }
 
     @Override
