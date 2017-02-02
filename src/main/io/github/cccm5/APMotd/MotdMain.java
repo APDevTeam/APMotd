@@ -1,5 +1,6 @@
 package io.github.cccm5.APMotd;
 
+import net.countercraft.movecraft.Movecraft;
 import net.countercraft.movecraft.config.Settings;
 import net.countercraft.movecraft.craft.CraftManager;
 import org.bukkit.ChatColor;
@@ -66,6 +67,10 @@ public class MotdMain extends JavaPlugin implements Listener{
 
     @EventHandler
     public void onServerListPingEvent(ServerListPingEvent e) {
+        if(Movecraft.getInstance().assaultsRunning.size()!=0) {
+            e.setMotd(motd + ChatColor.RESET + "\n" + "The assault of " + Movecraft.getInstance().assaultsRunning.iterator().next() + " is underway!");
+            return;
+        }
         City nextSiege = getNextSiege();
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("MST"));
         int minutesToNextSiege = SiegeTime.siegeTimetoMinutes(nextSiege.getTime()) - calendar.get(Calendar.MINUTE) - calendar.get(Calendar.HOUR_OF_DAY) * 60 - (calendar.get(Calendar.DAY_OF_WEEK) - 1) * 1440;
