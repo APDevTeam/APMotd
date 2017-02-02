@@ -55,7 +55,8 @@ public class MotdMain extends JavaPlugin implements Listener{
         }
         for(String name : siegeTimes.keySet()){
             if(siegeDays.get(name)==null)
-                cities.add(new City(name,new SiegeTime(siegeTimes.get(name)%100, siegeTimes.get(name)/ 100)));
+                for(int i = 1; i<=7;i++)
+                    cities.add(new City(name,new SiegeTime(siegeTimes.get(name)%100, siegeTimes.get(name)/ 100, i)));
             else
                 cities.add(new City(name,new SiegeTime(siegeTimes.get(name)%100, siegeTimes.get(name)/ 100, siegeDays.get(name) )));
         }

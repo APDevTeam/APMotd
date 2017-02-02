@@ -18,15 +18,6 @@ public class SiegeTime implements Comparable<SiegeTime>{
         this.hour = hour;
         this.day = day;
     }
-    public SiegeTime(int minute, int hour) {
-        if (minute > 60 || minute < 0)
-            throw new IllegalArgumentException("Minute must be withing 1-60. Input: " + minute);
-        if (hour > 24 || hour < 0)
-            throw new IllegalArgumentException("Hour must be withing 0-24. Input: " + hour);
-        this.minute = minute;
-        this.hour = hour;
-        this.day = -1;
-    }
 
     public int getMinute() {
         return minute;
@@ -45,8 +36,6 @@ public class SiegeTime implements Comparable<SiegeTime>{
     }
 
     public int getDay() {
-        if(day==-1)
-            return Calendar.getInstance(TimeZone.getTimeZone("MST")).get(Calendar.DAY_OF_WEEK);
         return day;
     }
 
