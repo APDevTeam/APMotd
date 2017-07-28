@@ -20,9 +20,8 @@ import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MotdMain extends JavaPlugin implements Listener{
+public final class MotdMain extends JavaPlugin implements Listener{
     private FileConfiguration config;
-    private CraftManager craftManager;
     private Logger logger;
     private List<City> cities = new ArrayList<>();
     private String motd;
@@ -83,8 +82,8 @@ public class MotdMain extends JavaPlugin implements Listener{
             e.setMotd(motd + ChatColor.RESET + "\n" + minutesToNextSiege / 60 + " hours until the siege of " + nextSiege.getName());
         else
             e.setMotd(motd + ChatColor.RESET + "\n" + minutesToNextSiege + " minutes until the siege of " + nextSiege.getName());
-        if (debug == true) {
-            logger.info("Current date: Day " + calendar.get(Calendar.DAY_OF_WEEK) + ", hour " + calendar.get(Calendar.HOUR_OF_DAY) + ", minute " + calendar.get(calendar.MINUTE));
+        if (debug) {
+            logger.info("Current date: Day " + calendar.get(Calendar.DAY_OF_WEEK) + ", hour " + calendar.get(Calendar.HOUR_OF_DAY) + ", minute " + calendar.get(Calendar.MINUTE));
             logger.info("Siege date: Day " + nextSiege.getTime().getDay() + ", hour " + nextSiege.getTime().getHour() + ", minute " + nextSiege.getTime().getMinute());
         }
     }

@@ -1,4 +1,4 @@
 name: APMotd
 main: io.github.cccm5.APMotd.MotdMain
-version: 0.0.1
+version: ${project.version}
 depend: [Movecraft]
