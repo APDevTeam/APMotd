@@ -52,7 +52,8 @@ public final class MotdMain extends JavaPlugin implements Listener{
             return;
         }
         for(Map.Entry<String, Integer> entry : siegeTimes.entrySet()){
-            logger.info("Loading city: " + entry.getKey() + " with siege time " + entry.getValue());
+            if(debug)
+                logger.info("Loading city: " + entry.getKey() + " with siege time " + entry.getValue());
             if(siegeDays.get(entry.getKey())==null)
                 for(int i = 1; i<=7;i++)
                     cities.add(new City(entry.getKey(),new SiegeTime(entry.getValue()%100, entry.getValue()/ 100, i)));
@@ -72,8 +73,11 @@ public final class MotdMain extends JavaPlugin implements Listener{
         City nextSiege = getNextSiege();
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("MST"));
         int minutesToNextSiege = SiegeTime.siegeTimetoMinutes(nextSiege.getTime()) - calendar.get(Calendar.MINUTE) - calendar.get(Calendar.HOUR_OF_DAY) * 60 - (calendar.get(Calendar.DAY_OF_WEEK) - 1) * 1440;
-        if (minutesToNextSiege < 0)
+        if (minutesToNextSiege < 0) {
+            if(debug)
+                logger.info("Rolling over siege time");
             minutesToNextSiege = 10080 + minutesToNextSiege;
+        }
         //SiegeTime timeToNextSiege = nextSiege.getTime().getInterval(new SiegeTime(calendar.get(Calendar.MINUTE), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.DAY_OF_WEEK)));
         if (minutesToNextSiege > 1440 && !debug)
             e.setMotd(motd + ChatColor.RESET + "\n" + minutesToNextSiege / 1440 + " days until the siege of " + nextSiege.getName());
