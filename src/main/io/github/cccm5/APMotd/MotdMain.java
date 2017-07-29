@@ -2,14 +2,12 @@ package io.github.cccm5.APMotd;
 
 import net.countercraft.movecraft.Movecraft;
 import net.countercraft.movecraft.config.Settings;
-import net.countercraft.movecraft.craft.CraftManager;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -53,12 +51,13 @@ public final class MotdMain extends JavaPlugin implements Listener{
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
-        for(String name : siegeTimes.keySet()){
-            if(siegeDays.get(name)==null)
+        for(Map.Entry<String, Integer> entry : siegeTimes.entrySet()){
+            logger.info("Loading city: " + entry.getKey() + " with siege time " + entry.getValue());
+            if(siegeDays.get(entry.getKey())==null)
                 for(int i = 1; i<=7;i++)
-                    cities.add(new City(name,new SiegeTime(siegeTimes.get(name)%100, siegeTimes.get(name)/ 100, i)));
+                    cities.add(new City(entry.getKey(),new SiegeTime(entry.getValue()%100, entry.getValue()/ 100, i)));
             else
-                cities.add(new City(name,new SiegeTime(siegeTimes.get(name)%100, siegeTimes.get(name)/ 100, siegeDays.get(name) )));
+                cities.add(new City(entry.getKey(),new SiegeTime(entry.getValue()%100, entry.getValue()/ 100, siegeDays.get(entry.getKey()))));
         }
         Collections.sort(cities);
 
